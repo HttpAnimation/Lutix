@@ -5,7 +5,7 @@ int main(int argc, char *argv[]) {
 
     // Create a main window
     QMainWindow window;
-    window.setWindowTitle("Lutix - Qt Demo");
+    window.setWindowTitle("Lutix");
 
     // Set the size of the main window
     window.setGeometry(100, 100, 800, 600); // (x, y, width, height)
