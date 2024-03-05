@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
     QWidget *mainTab = new QWidget();
     QWidget *p2poolTab = new QWidget();
     QWidget *xmrigTab = new QWidget();
+    QWidget *updatesTab = new QWidget(); // New tab for updates
 
     // Add widgets to each tab
     QLabel *mainLabel = new QLabel("Lutix :3\n(Made by a tranny and a furry)", mainTab);
@@ -113,10 +114,26 @@ int main(int argc, char *argv[]) {
 
     QLabel *xmrigLabel = new QLabel("XMRig Tab Content", xmrigTab);
 
+    // Add QTextBrowser for updates tab
+    QTextBrowser *updatesBrowser = new QTextBrowser(updatesTab);
+    QFile updatesFile("updates.md");
+    if (updatesFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        updatesBrowser->setMarkdown(updatesFile.readAll());
+        updatesFile.close();
+    } else {
+        updatesBrowser->setPlainText("Failed to load updates.");
+    }
+
+    // Layout for updates tab
+    QVBoxLayout *updatesLayout = new QVBoxLayout(updatesTab);
+    updatesLayout->addWidget(updatesBrowser);
+    updatesTab->setLayout(updatesLayout);
+
     // Add tabs to the tab widget
     tabWidget->addTab(mainTab, "Main");
     tabWidget->addTab(p2poolTab, "P2Pool");
     tabWidget->addTab(xmrigTab, "XMRig");
+    tabWidget->addTab(updatesTab, "Updates"); // Add updates tab
 
     // Add the tab widget to the main window's central widget
     window.setCentralWidget(tabWidget);
