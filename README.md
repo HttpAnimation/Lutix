@@ -1,6 +1,6 @@
 # Lutix/stable
-The gitter for this repo.
+A GUI tool for XMR
 
-## Downloading
+## Installing
 ```bash
 ```
