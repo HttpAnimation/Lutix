@@ -28,7 +28,11 @@ int main(int argc, char *argv[]) {
     QVBoxLayout *p2poolLayout = new QVBoxLayout(p2poolTab);
     p2poolLayout->addWidget(startButton);
     p2poolLayout->addWidget(stopButton);
-    p2poolLayout->addWidget(restartButton);
+
+    // Add QLineEdit for XMR wallet address
+    QLineEdit *walletAddressEdit = new QLineEdit(p2poolTab);
+    walletAddressEdit->setPlaceholderText("Enter XMR Wallet Address");
+    p2poolLayout->addWidget(walletAddressEdit);
 
     // Add a frame with a terminal-like interface for P2Pool output
     QFrame *terminalFrame = new QFrame(p2poolTab);
@@ -40,6 +44,7 @@ int main(int argc, char *argv[]) {
     terminalFrame->setLayout(terminalLayout);
     p2poolLayout->addWidget(terminalFrame);
 
+    p2poolLayout->addWidget(restartButton);
     p2poolTab->setLayout(p2poolLayout);
 
     QLabel *xmrigLabel = new QLabel("XMRig Tab Content", xmrigTab);
