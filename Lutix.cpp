@@ -25,11 +25,22 @@ int main(int argc, char *argv[]) {
     QPushButton *restartButton = new QPushButton("Restart", p2poolTab);
 
     // Layout for buttons
-    QVBoxLayout *layout = new QVBoxLayout(p2poolTab);
-    layout->addWidget(startButton);
-    layout->addWidget(stopButton);
-    layout->addWidget(restartButton);
-    p2poolTab->setLayout(layout);
+    QVBoxLayout *p2poolLayout = new QVBoxLayout(p2poolTab);
+    p2poolLayout->addWidget(startButton);
+    p2poolLayout->addWidget(stopButton);
+    p2poolLayout->addWidget(restartButton);
+
+    // Add a frame with a terminal-like interface for P2Pool output
+    QFrame *terminalFrame = new QFrame(p2poolTab);
+    QPlainTextEdit *terminalTextEdit = new QPlainTextEdit(terminalFrame);
+    terminalTextEdit->setReadOnly(true);
+    terminalTextEdit->setPlaceholderText("P2Pool output will appear here...");
+    QVBoxLayout *terminalLayout = new QVBoxLayout(terminalFrame);
+    terminalLayout->addWidget(terminalTextEdit);
+    terminalFrame->setLayout(terminalLayout);
+    p2poolLayout->addWidget(terminalFrame);
+
+    p2poolTab->setLayout(p2poolLayout);
 
     QLabel *xmrigLabel = new QLabel("XMRig Tab Content", xmrigTab);
 
