@@ -1,4 +1,25 @@
 #include <QtWidgets>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QFile>
+#include <QMessageBox>
+
+// Function to save wallet address to settings.json
+void saveWalletAddress(const QString &walletAddress) {
+    QJsonObject jsonObject;
+    jsonObject["wallet_address"] = walletAddress;
+
+    QJsonDocument jsonDocument(jsonObject);
+
+    QFile file("settings.json");
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::warning(nullptr, "Error", "Failed to open settings.json for writing.");
+        return;
+    }
+
+    file.write(jsonDocument.toJson());
+    file.close();
+}
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -43,6 +64,12 @@ int main(int argc, char *argv[]) {
     terminalLayout->addWidget(terminalTextEdit);
     terminalFrame->setLayout(terminalLayout);
     p2poolLayout->addWidget(terminalFrame);
+
+    // Connect the restart button to save wallet address to settings.json
+    QObject::connect(restartButton, &QPushButton::clicked, [&]() {
+        QString walletAddress = walletAddressEdit->text();
+        saveWalletAddress(walletAddress);
+    });
 
     p2poolLayout->addWidget(restartButton);
     p2poolTab->setLayout(p2poolLayout);
