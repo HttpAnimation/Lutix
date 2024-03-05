@@ -6,9 +6,7 @@ int main(int argc, char *argv[]) {
     // Create a main window
     QMainWindow window;
     window.setWindowTitle("Lutix");
-
-    // Set the size of the main window
-    window.setGeometry(100, 100, 800, 600); // (x, y, width, height)
+    window.resize(800, 600); // Set the size of the window
 
     // Create a tab widget
     QTabWidget *tabWidget = new QTabWidget(&window);
@@ -19,7 +17,20 @@ int main(int argc, char *argv[]) {
     QWidget *xmrigTab = new QWidget();
 
     // Add widgets to each tab
-    QLabel *mainLabel = new QLabel("Lutix :3\n(Made by a tranny and a furry)", mainTab);    QLabel *p2poolLabel = new QLabel("P2Pool Tab Content", p2poolTab);
+    QLabel *mainLabel = new QLabel("Lutix :3\n(Made by a tranny and a furry)", mainTab);
+
+    // Create buttons for the p2pool tab
+    QPushButton *startButton = new QPushButton("Start", p2poolTab);
+    QPushButton *stopButton = new QPushButton("Stop", p2poolTab);
+    QPushButton *restartButton = new QPushButton("Restart", p2poolTab);
+
+    // Layout for buttons
+    QVBoxLayout *layout = new QVBoxLayout(p2poolTab);
+    layout->addWidget(startButton);
+    layout->addWidget(stopButton);
+    layout->addWidget(restartButton);
+    p2poolTab->setLayout(layout);
+
     QLabel *xmrigLabel = new QLabel("XMRig Tab Content", xmrigTab);
 
     // Add tabs to the tab widget
