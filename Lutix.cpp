@@ -19,8 +19,7 @@ int main(int argc, char *argv[]) {
     QWidget *xmrigTab = new QWidget();
 
     // Add widgets to each tab
-    QLabel *mainLabel = new QLabel("Main Tab Content", mainTab);
-    QLabel *p2poolLabel = new QLabel("P2Pool Tab Content", p2poolTab);
+    QLabel *mainLabel = new QLabel("Lutix :3\n(Made by a tranny and a furry)", mainTab);    QLabel *p2poolLabel = new QLabel("P2Pool Tab Content", p2poolTab);
     QLabel *xmrigLabel = new QLabel("XMRig Tab Content", xmrigTab);
 
     // Add tabs to the tab widget
