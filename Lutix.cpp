@@ -77,6 +77,9 @@ int main(int argc, char *argv[]) {
     terminalTextEdit->setReadOnly(true);
     terminalTextEdit->setPlaceholderText("P2Pool output will appear here...");
 
+    // Set terminal frame size policy to expand vertically
+    terminalFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     // Layout for buttons
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     buttonLayout->addWidget(startButton);
