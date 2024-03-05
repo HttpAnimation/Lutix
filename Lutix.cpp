@@ -5,7 +5,7 @@ int main(int argc, char *argv[]) {
 
     // Create a main window
     QMainWindow window;
-    window.setWindowTitle("Lutix");
+    window.setWindowTitle("Lutix - BETA");
     window.resize(800, 600); // Set the size of the window
 
     // Create a tab widget
