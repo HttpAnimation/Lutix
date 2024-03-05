@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     // Create a main window
     QMainWindow window;
     window.setWindowTitle("Lutix - BETA");
-    window.resize(800, 600); // Set the size of the window
+    window.resize(1000, 600); // Increased window size
 
     // Create a tab widget
     QTabWidget *tabWidget = new QTabWidget(&window);
@@ -67,25 +67,28 @@ int main(int argc, char *argv[]) {
     QPushButton *restartButton = new QPushButton("Restart", p2poolTab);
     QPushButton *saveButton = new QPushButton("Save", p2poolTab);
 
-    // Layout for buttons
-    QVBoxLayout *p2poolLayout = new QVBoxLayout(p2poolTab);
-    p2poolLayout->addWidget(startButton);
-    p2poolLayout->addWidget(stopButton);
-
     // Add QLineEdit for XMR wallet address
     QLineEdit *walletAddressEdit = new QLineEdit(p2poolTab);
     walletAddressEdit->setPlaceholderText("Enter XMR Wallet Address");
-    p2poolLayout->addWidget(walletAddressEdit);
 
     // Add a frame with a terminal-like interface for P2Pool output
     QFrame *terminalFrame = new QFrame(p2poolTab);
     QPlainTextEdit *terminalTextEdit = new QPlainTextEdit(terminalFrame);
     terminalTextEdit->setReadOnly(true);
     terminalTextEdit->setPlaceholderText("P2Pool output will appear here...");
-    QVBoxLayout *terminalLayout = new QVBoxLayout(terminalFrame);
-    terminalLayout->addWidget(terminalTextEdit);
-    terminalFrame->setLayout(terminalLayout);
+
+    // Layout for buttons
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
+    buttonLayout->addWidget(startButton);
+    buttonLayout->addWidget(stopButton);
+    buttonLayout->addWidget(restartButton);
+    buttonLayout->addWidget(saveButton);
+
+    // Layout for p2pool tab
+    QVBoxLayout *p2poolLayout = new QVBoxLayout(p2poolTab);
+    p2poolLayout->addWidget(walletAddressEdit);
     p2poolLayout->addWidget(terminalFrame);
+    p2poolLayout->addLayout(buttonLayout);
 
     // Connect the restart button to save wallet address to settings.json
     QObject::connect(restartButton, &QPushButton::clicked, [&]() {
@@ -103,7 +106,6 @@ int main(int argc, char *argv[]) {
     QString savedWalletAddress = readWalletAddress();
     walletAddressEdit->setText(savedWalletAddress);
 
-    p2poolLayout->addWidget(saveButton);
     p2poolTab->setLayout(p2poolLayout);
 
     QLabel *xmrigLabel = new QLabel("XMRig Tab Content", xmrigTab);
