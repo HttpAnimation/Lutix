@@ -21,6 +21,27 @@ void saveWalletAddress(const QString &walletAddress) {
     file.close();
 }
 
+// Function to read wallet address from settings.json
+QString readWalletAddress() {
+    QFile file("settings.json");
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(nullptr, "Error", "Failed to open settings.json for reading.");
+        return "";
+    }
+
+    QByteArray jsonData = file.readAll();
+    file.close();
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonData);
+    QJsonObject jsonObject = jsonDocument.object();
+
+    if (jsonObject.contains("wallet_address")) {
+        return jsonObject["wallet_address"].toString();
+    } else {
+        return "";
+    }
+}
+
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
@@ -44,6 +65,7 @@ int main(int argc, char *argv[]) {
     QPushButton *startButton = new QPushButton("Start", p2poolTab);
     QPushButton *stopButton = new QPushButton("Stop", p2poolTab);
     QPushButton *restartButton = new QPushButton("Restart", p2poolTab);
+    QPushButton *saveButton = new QPushButton("Save", p2poolTab);
 
     // Layout for buttons
     QVBoxLayout *p2poolLayout = new QVBoxLayout(p2poolTab);
@@ -65,15 +87,23 @@ int main(int argc, char *argv[]) {
     terminalFrame->setLayout(terminalLayout);
     p2poolLayout->addWidget(terminalFrame);
 
-    // Add a button to save the wallet address
-    QPushButton *saveButton = new QPushButton("Save Wallet Address", p2poolTab);
+    // Connect the restart button to save wallet address to settings.json
+    QObject::connect(restartButton, &QPushButton::clicked, [&]() {
+        QString walletAddress = walletAddressEdit->text();
+        saveWalletAddress(walletAddress);
+    });
+
+    // Connect the save button to save wallet address to settings.json
     QObject::connect(saveButton, &QPushButton::clicked, [&]() {
         QString walletAddress = walletAddressEdit->text();
         saveWalletAddress(walletAddress);
     });
-    p2poolLayout->addWidget(saveButton);
 
-    p2poolLayout->addWidget(restartButton);
+    // Read wallet address from settings.json
+    QString savedWalletAddress = readWalletAddress();
+    walletAddressEdit->setText(savedWalletAddress);
+
+    p2poolLayout->addWidget(saveButton);
     p2poolTab->setLayout(p2poolLayout);
 
     QLabel *xmrigLabel = new QLabel("XMRig Tab Content", xmrigTab);
