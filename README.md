@@ -1,5 +1,5 @@
 # Lutix/stable
-A GUI tool for XMR
+A GUI tool for XMR.
 
 ## Installing
 ```bash
