@@ -131,9 +131,9 @@ int main(int argc, char *argv[]) {
 
     // Add tabs to the tab widget
     tabWidget->addTab(mainTab, "Main");
+    tabWidget->addTab(updatesTab, "Updates");
     tabWidget->addTab(p2poolTab, "P2Pool");
     tabWidget->addTab(xmrigTab, "XMRig");
-    tabWidget->addTab(updatesTab, "Updates"); // Add updates tab
 
     // Add the tab widget to the main window's central widget
     window.setCentralWidget(tabWidget);
