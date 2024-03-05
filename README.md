@@ -1,2 +1,6 @@
-# MainTemplate/stable
-A template I use
+# Lutix/stable
+The gitter for this repo.
+
+## Downloading
+```bash
+```
