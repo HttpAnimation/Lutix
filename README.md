@@ -5,3 +5,5 @@ A GUI tool for XMR
 ```bash
 echo "No install command right now."
 ```
+
+## Credits
