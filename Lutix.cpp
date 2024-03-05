@@ -65,11 +65,13 @@ int main(int argc, char *argv[]) {
     terminalFrame->setLayout(terminalLayout);
     p2poolLayout->addWidget(terminalFrame);
 
-    // Connect the restart button to save wallet address to settings.json
-    QObject::connect(restartButton, &QPushButton::clicked, [&]() {
+    // Add a button to save the wallet address
+    QPushButton *saveButton = new QPushButton("Save Wallet Address", p2poolTab);
+    QObject::connect(saveButton, &QPushButton::clicked, [&]() {
         QString walletAddress = walletAddressEdit->text();
         saveWalletAddress(walletAddress);
     });
+    p2poolLayout->addWidget(saveButton);
 
     p2poolLayout->addWidget(restartButton);
     p2poolTab->setLayout(p2poolLayout);
